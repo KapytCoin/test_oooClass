@@ -5,8 +5,9 @@ namespace App\Service;
 require('../src/Interface/ShapesInterface.php');
 
 use Exception;
+use App\Interface\ShapesInterface;
 
-class ShapeGeneratorService
+class ShapeGeneratorService implements ShapesInterface
 {
     public static function generatorShapes(): array
     {
