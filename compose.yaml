@@ -1,0 +1,32 @@
+version: '3.8'
+
+networks:
+    internal:
+
+services:
+    nginx:
+        image: nginx:latest
+        container_name: nginx
+        ports:
+          - "8080:80"
+        volumes:
+          - /home/ilya/VsCodeProjects/test_oooClass:/var/www
+          - /home/ilya/VsCodeProjects/test_oooClass/docker/nginx:/etc/nginx/conf.d
+          - /home/ilya/VsCodeProjects/test_oooClass/logs/nginx:/var/log/nginx
+        depends_on:
+          - phpfpm
+        networks:
+          - internal
+
+    phpfpm:
+        build:
+          context: /home/ilya/VsCodeProjects/test_oooClass/docker/phpfpm
+          dockerfile: Dockerfile
+        container_name: phpfpm
+        volumes:
+          - /home/ilya/VsCodeProjects/test_oooClass:/var/www
+          - /home/ilya/VsCodeProjects/test_oooClass/docker/phpfpm:/usr/local/etc/php/php.ini
+        ports:
+          - "9000:9000"
+        networks:
+          - internal
