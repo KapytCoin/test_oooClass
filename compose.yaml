@@ -8,9 +8,9 @@ services:
         ports:
           - "8080:80"
         volumes:
-          - /home/ilya/VsCodeProjects/test_oooClass:/var/www
-          - /home/ilya/VsCodeProjects/test_oooClass/docker/nginx:/etc/nginx/conf.d
-          - /home/ilya/VsCodeProjects/test_oooClass/logs/nginx:/var/log/nginx
+          - $PWD:/var/www
+          - ./docker/nginx:/etc/nginx/conf.d
+          - ./logs/nginx:/var/log/nginx
         depends_on:
           - phpfpm
         networks:
@@ -18,12 +18,12 @@ services:
 
     phpfpm:
         build:
-          context: /home/ilya/VsCodeProjects/test_oooClass/docker/phpfpm
+          context: ./docker/phpfpm
           dockerfile: Dockerfile
         container_name: phpfpm
         volumes:
-          - /home/ilya/VsCodeProjects/test_oooClass:/var/www
-          - /home/ilya/VsCodeProjects/test_oooClass/docker/phpfpm:/usr/local/etc/php/php.ini
+          - $PWD:/var/www
+          - ./docker/phpfpm:/usr/local/etc/php/php.ini
         ports:
           - "9000:9000"
         networks:
